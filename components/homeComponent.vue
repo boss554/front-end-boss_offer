@@ -29,31 +29,46 @@
     </section>
   </template>
   
-  <script setup>
-  import { ref, computed } from 'vue';
-  
-  // Reactive State
-  const activeFilter = ref('allOffer');
-  
-  const filters = ref([
-    { label: 'All Offer', value: 'allOffer' },
-    { label: "Today's Best Offer", value: 'bestOffer' },
-    { label: 'Upcoming Offer', value: 'upcomingOffer' },
-    { label: 'Currently Using', value: 'currentlyOffer' }
-  ]);
-  
-  const offers = ref([
-    { title: 'Flat 5% Off On Order', code: 'FGFKG6589895AF', image: 'assets/images/top-stores-icon-1.png', tag: 'allOffer' },
-    { title: '25% Off All Furnishings', code: '20 : 21 : 03', image: 'assets/images/top-stores-icon-2.png', tag: 'allOffer' },
-    { title: '$30 Off Orders Over $150', code: null, image: 'assets/images/top-stores-icon-3.png', tag: 'allOffer' },
-    { title: '10% Off All Apparel', code: null, image: 'assets/images/top-stores-icon-4.png', tag: 'allOffer' }
-  ]);
-  
-  // Computed Property
-  const filteredOffers = computed(() => {
-    return offers.value.filter(offer => activeFilter.value === 'allOffer' || offer.tag === activeFilter.value);
-  });
-  </script>
+ <script setup>
+import { ref, computed, onMounted } from 'vue';
+
+const activeFilter = ref('allOffer');
+
+const filters = ref([
+  { label: 'All Offer', value: 'allOffer' },
+  { label: "Today's Best Offer", value: 'bestOffer' },
+  { label: 'Upcoming Offer', value: 'upcomingOffer' },
+  { label: 'Currently Using', value: 'currentlyOffer' }
+]);
+
+const offers = ref([]);
+
+// Fetch data from API
+const fetchOffers = async () => {
+  try {
+    const res = await fetch('https://boss-offer.onrender.com/api/posts');
+    console.log('Response:', res); // Log the response for debugging
+    if (!res.ok) {
+      throw new Error('Network response was not ok ' + res.statusText);
+    }
+    const data = await res.json();
+    offers.value = data.posts; // Adjust based on API response format
+  } catch (error) {
+    console.error('Failed to fetch offers:', error);
+  }
+};
+
+onMounted(() => {
+  fetchOffers();
+});
+
+// Computed: filter offers by tag
+const filteredOffers = computed(() => {
+  return offers.value.filter(offer => 
+    activeFilter.value === 'allOffer' || offer.tag === activeFilter.value
+  );
+});
+</script>
   
   <style scoped>
   button:hover span {

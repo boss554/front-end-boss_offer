@@ -49,7 +49,7 @@
                 <p class="mb-4">Subscribe to our newsletter for updates.</p>
                 <form class="flex">
                     <input type="email" placeholder="Email address" class="px-4 py-2 w-full text-white-800 rounded-l-md">
-                    <button class="bg-white-500 px-4 py-2 rounded-r-md text-white"><i class="ph ph-paper-plane-tilt"></i></button>
+                    <button class="bg-white-500 px-4 py-2 rounded`-r-md text-white"><i class="ph ph-paper-plane-tilt"></i></button>
                 </form>
             </div>
         </div>
@@ -64,6 +64,5 @@
         </div>
     </div>
 </footer>
-
 
   </template>
