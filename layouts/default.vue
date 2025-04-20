@@ -1,16 +1,10 @@
 <template>
-    <HeadComponent/>
-    <HeaderComponent/>
-    <main>
-        <slot/>
-    </main>
-    <FooterComponent/>
+  <div>
+    <Head />
+    <Header />
+    <NuxtPage />
+    <Footer />
+  </div>
 </template>
 
-
-<script setup>
-import FooterComponent from '@/components/footerComponent.vue';
-import HeadComponent from '@/components/headComponent.vue';
-import HeaderComponent from '@/components/headerComponent.vue';
-import HomeComponent from '~/components/homeComponent.vue';
-</script>
+<script setup></script>
